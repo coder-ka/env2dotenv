@@ -61,3 +61,11 @@ jobs:
           output: test.env
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check file existence
+        id: check-test-action-result
+        run: |
+          if [ ! -f test.env ]; then
+            echo "test.env does not exist"
+            exit 1
+          fi
