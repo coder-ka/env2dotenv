@@ -8,7 +8,7 @@ GitHub repository without concern for escaping or quote value.
 ## Example
 
 ```yml
-uses: ./
+uses: coder-ka/env2dotenv@v1
 with:
   # comma separated environment variable keys to output
   # Required
