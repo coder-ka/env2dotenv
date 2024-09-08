@@ -2,7 +2,8 @@
 
 This action write specified environment variables to a file in dotenv format.
 
-With this action, you can safely output your secret or another values stored in github repository without concern for escaping or quote value.
+With this action, you can safely output your secret or another values stored in
+github repository without concern for escaping or quote value.
 
 ## Example
 
