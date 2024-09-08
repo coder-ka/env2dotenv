@@ -1,23 +1,21 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'coder-ka/env2dotenv'
+description: 'Read environment variables and output to a file in dotenv format.'
+author: 'coder-ka'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'file-plus'
+  color: 'orange'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  keys:
+    description: 'comma separated environment variables to read'
     required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+  output:
+    description: 'output file path in dotenv format.'
+    required: false
+    default: '.env'
 
 runs:
   using: node20

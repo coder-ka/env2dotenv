@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
+import fs from 'fs/promises'
 
 /**
  * The main function for the action.
@@ -7,18 +7,20 @@ import { wait } from './wait'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const inputs = {
+      keys: core.getInput('keys'),
+      output: core.getInput('output')
+    }
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const keys = inputs.keys.split(',')
+    const content = keys.map(key => `${key}=${process.env[key]}`).join('\n')
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    // write content to file in inputs.output path.
+    await fs.writeFile(inputs.output, content, {
+      encoding: 'utf-8',
+      // overwrite the file if it already exists
+      flag: 'w'
+    })
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
