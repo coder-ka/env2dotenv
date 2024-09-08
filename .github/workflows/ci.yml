@@ -57,8 +57,15 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          keys: 'GITHUB_TOKEN'
+          output: test.env
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+      - name: Check file existence
+        id: check-test-action-result
+        run: |
+          if [ ! -f test.env ]; then
+            echo "test.env does not exist"
+            exit 1
+          fi
